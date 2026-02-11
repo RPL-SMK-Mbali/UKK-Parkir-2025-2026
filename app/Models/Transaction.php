@@ -7,14 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     protected $fillable = [
-        'name',
-        'message',
-        'icon',
-        'color',
-        'action_url',
-        'is_read',
-        'is_system',
-        'category',
+        'user_id',
+        'parking_area_id',
+        'vehicle_id',
+        'date_in',
+        'date_out',
+        'minutes_duration',
+        'amount',
     ];
 
     public $timestamps = true;

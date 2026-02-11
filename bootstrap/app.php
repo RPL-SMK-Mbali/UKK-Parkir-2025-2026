@@ -27,15 +27,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'petugas.admin' => RoleMiddleware::class.':petugas,admin',
             'all.roles' => RoleMiddleware::class.':petugas,admin,owner',
         ]);
-        // In Controller
-        // $this->middleware('role:owner,admin')->only([
-        //     'index',
-        //     'create',
-        //     'store',
-        //     'edit',
-        //     'update',
-        //     'destroy'
-        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
