@@ -4,12 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ParkingArea extends Model
+class Transaction extends Model
 {
     protected $fillable = [
         'name',
-        'capacity',
-        'type'
+        'message',
+        'icon',
+        'color',
+        'action_url',
+        'is_read',
+        'is_system',
+        'category',
     ];
 
     public $timestamps = true;

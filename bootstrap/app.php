@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\RoleMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,7 +18,24 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
-        //
+        $middleware->alias([
+            'role' => RoleMiddleware::class,
+            'admin' => RoleMiddleware::class.':admin',
+            'owner' => RoleMiddleware::class.':owner',
+            'petugas' => RoleMiddleware::class.':petugas',
+            'admin.owner' => RoleMiddleware::class.':admin,owner',
+            'petugas.admin' => RoleMiddleware::class.':petugas,admin',
+            'all.roles' => RoleMiddleware::class.':petugas,admin,owner',
+        ]);
+        // In Controller
+        // $this->middleware('role:owner,admin')->only([
+        //     'index',
+        //     'create',
+        //     'store',
+        //     'edit',
+        //     'update',
+        //     'destroy'
+        // ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

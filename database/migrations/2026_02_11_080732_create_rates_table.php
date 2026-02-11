@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255)->unique()->comment('Nama Tarif Parkir');
-            $table->bigInteger('hourly_rate', 255)->comment('Tarif Parkir Per Jam');
+            $table->bigInteger('hourly_rate')->comment('Tarif Parkir Per Jam');
             $table->timestamps();
         });
     }

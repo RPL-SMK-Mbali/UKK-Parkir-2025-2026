@@ -16,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 255);
             $table->integer('capacity')->default(0)->comment('Kapasitas maksimal parkiran');
+            $table->enum('type', ['private', 'public'])->comment('Tipe area parkir private atau public');
             $table->timestamps();
         });
     }
