@@ -100,7 +100,7 @@ class Transaction extends Model
                 $check_transaction->update([
                     'date_out' => $date_out,
                     'minutes_duration' => (int) $minutesDuration,
-                    'amount' => $amount,
+                    'amount' => ceil($amount / 500) * 500,
                 ]);
 
                 $check_transaction->fresh();
