@@ -39,7 +39,15 @@ class HandleInertiaRequests extends Middleware
         $menus = [];
         if (Auth::check()) {
             $user = Auth::user();
-            if($user->role == 'admin') {
+            if($user->role == 'petugas') {
+                $menus = [
+                    [
+                        'name' => 'Parkir',
+                        'route' => 'transactions.',
+                        'active' => '*',
+                    ],
+                ];
+            } else if($user->role == 'admin') {
                 $menus = [
                     [
                         'name' => 'Tarif Parkir',
@@ -52,6 +60,8 @@ class HandleInertiaRequests extends Middleware
                         'active' => '*',
                     ]
                 ];
+            } else if($user->role == 'owner') {
+                $menus = [];
             }
         }
 

@@ -14,7 +14,7 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next, ... $permission): Response
     {
         if (!Auth::check()) {
             return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
@@ -22,11 +22,11 @@ class RoleMiddleware
 
         $user = Auth::user();
 
-        if (empty($roles)) {
-            return $next($request);
+        if (empty($permission)) {
+            abort(403, 'Anda tidak memiliki akses untuk halaman ini.');
         }
-
-        foreach ($roles as $role) {
+        
+        foreach ($permission as $role) {
             if ($user->role === $role) {
                 return $next($request);
             }
