@@ -48,8 +48,19 @@ Sebelum memulai instalasi, pastikan sistem Anda memenuhi persyaratan berikut:
 - Windows 10/11 (WSL2 disarankan)
 
 ## 🚀 Instalasi
-
-### 1. Clone Repository
 ```bash
 git clone https://github.com/RPL-SMK-Mbali/UKK-Parkir-2025-2026.git
 cd UKK-Parkir-2025-2026
+
+composer install
+
+#edit .env 
+php artisan migrate --seed
+
+#nodejs
+npm install
+npm run build #production
+npm run dev  #developmet
+
+php artisan serve
+```
