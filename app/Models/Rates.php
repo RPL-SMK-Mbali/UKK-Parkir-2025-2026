@@ -8,13 +8,7 @@ class Rates extends Model
 {
     protected $fillable = [
         'name',
-        'message',
-        'icon',
-        'color',
-        'action_url',
-        'is_read',
-        'is_system',
-        'category',
+        'hourly_rate',
     ];
 
     public $timestamps = true;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use App\Models\Rates;
 use Inertia\Inertia;
 
@@ -48,12 +49,16 @@ class RatesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
+        $validated = $request->validate([
+            'name' => ['required', 'max:255', 'unique:rates,name'],
+            'hourly_rate' => 'required',
+        ],[],
+        [
+            'name' => 'Nama Tarif Parkir',
+            'hourly_rate' => 'Tarif Parkir Per Jam',
         ]);
 
-        if(Rates::create($request->only(['name', 'hourly_rate']))) {
+        if(Rates::create($validated)) {
             return redirect()->route('rates.index')
                 ->with('success', 'Tarif Parkir berhasil ditambahkan.');
         }
@@ -90,12 +95,19 @@ class RatesController extends Controller
      */
     public function update(Request $request, Rates $rate)
     {
-        $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
+        $validated = $request->validate([
+        'name' => [
+                'required',
+                'max:255',
+                Rule::unique('rates', 'name')->ignore($rate->id), // Exclude current record
+            ],
+            'hourly_rate' => ['required', 'numeric', 'min:0'], // Tambahkan validasi numeric
+        ], [], [
+            'name' => 'Nama Tarif Parkir',
+            'hourly_rate' => 'Tarif Parkir Per Jam',
         ]);
 
-        if($rate->update($request->only(['name', 'hourly_rate']))) {
+        if($rate->update($validated)) {
             return redirect()->route('rates.index')
                 ->with('success', 'Tarif Parkir berhasil diupdate.');
         }

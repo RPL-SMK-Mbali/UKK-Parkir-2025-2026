@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { ref, onMounted,  } from 'vue';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import ApplicationMark from '@/Components/ApplicationMark.vue';
 import Banner from '@/Components/Banner.vue';
 import Dropdown from '@/Components/Dropdown.vue';
@@ -12,7 +12,9 @@ defineProps({
     title: String,
 });
 
+const page  = usePage();
 const showingNavigationDropdown = ref(false);
+const menus = ref([]);
 
 const switchToTeam = (team) => {
     router.put(route('current-team.update'), {
@@ -25,6 +27,11 @@ const switchToTeam = (team) => {
 const logout = () => {
     router.post(route('logout'));
 };
+
+onMounted(() => {
+    menus.value = page.props.menus;
+});
+
 </script>
 
 <template>
@@ -52,8 +59,11 @@ const logout = () => {
                                     Dashboard
                                 </NavLink>
                                 
-                                <NavLink :href="route('rates.index')" :active="route().current('rates.*')">
-                                    Tarif Parkir
+                                <NavLink
+                                    v-for="(menu, index) in menus"
+                                    :href="route(`${menu.route}index`)" 
+                                    :active="route().current(`${menu.route}${menu.active}`)">
+                                    {{ menu.name }}
                                 </NavLink>
                             </div>
                         </div>
@@ -198,9 +208,12 @@ const logout = () => {
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </ResponsiveNavLink>
-                        
-                        <ResponsiveNavLink :href="route('rates.index')" :active="route().current('rates.*')">
-                            Tarif Parkir
+
+                        <ResponsiveNavLink
+                            v-for="(menu, index) in menus"
+                            :href="route(`${menu.route}index`)" 
+                            :active="route().current(`${menu.route}${menu.active}`)">
+                            {{ menu.name }}
                         </ResponsiveNavLink>
                     </div>
 
