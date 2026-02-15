@@ -1,6 +1,7 @@
 # Laravel 11 Jetstream Inertia - Aplikasi Parkir UKK 2025/2026 SMK M Bali
 
 Aplikasi Parkir menggunakan Laravel 11 dengan Jetstream Inertia.
+[Sumber Tutorial][https://lms.smkmbali.sch.id/course/1]
 
 ## 📋 Daftar Isi
 - [Prerequisites](#prerequisites)
