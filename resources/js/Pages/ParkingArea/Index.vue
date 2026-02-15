@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 const deleteModel = (id) => {
-    deleteForm.delete(route('rates.destroy', id), {
+    deleteForm.delete(route('parking_areas.destroy', id), {
         preserveScroll: true,
         preserveState: true,
         onSuccess: () => (beingDeleted.value = null),
@@ -48,17 +48,21 @@ const deleteModel = (id) => {
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tarif Parkir</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">Tarif Parkir Per Jam</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Area Parkir</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tarif Parkir</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Kapasitas Area Parkir</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">Tipe Area Parkir</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-right">Aksi</th>
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                         <tr v-for="(item, index) in attr?.models?.data" :key="index">
                             <td class="px-6 py-4 whitespace-nowrap">{{ item?.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right">{{ item?.hourlyRateAt }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ item?.rate?.name }} - {{ item?.rate?.hourlyRateAt }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">{{ item?.capacity }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-center">{{ item?.typeAt }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-right">
-                                <Link :href="route('rates.edit', item?.id)" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
+                                <Link :href="route('parking_areas.edit', item?.id)" class="text-indigo-600 hover:text-indigo-900 mr-2">Edit</Link>
                                 <button @click="beingDeleted = item?.id" class="text-red-600 hover:text-red-900">Hapus</button>
                             </td>
                         </tr>

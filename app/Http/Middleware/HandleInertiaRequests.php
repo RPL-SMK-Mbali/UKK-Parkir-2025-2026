@@ -45,6 +45,11 @@ class HandleInertiaRequests extends Middleware
                         'name' => 'Tarif Parkir',
                         'route' => 'rates.',
                         'active' => '*',
+                    ],
+                    [
+                        'name' => 'Area Parkir',
+                        'route' => 'parking_areas.',
+                        'active' => '*',
                     ]
                 ];
             }

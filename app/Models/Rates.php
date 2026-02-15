@@ -17,5 +17,12 @@ class Rates extends Model
 
     protected $hidden = [];
 
-    protected $appends = [];
+    protected $appends = [
+        'hourlyRateAt'
+    ];
+
+    public function getHourlyRateAtAttribute()
+    {
+        return number_format($this->hourly_rate, 0, ',', '.');
+    }
 }

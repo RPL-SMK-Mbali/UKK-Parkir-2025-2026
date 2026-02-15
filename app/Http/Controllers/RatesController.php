@@ -51,7 +51,7 @@ class RatesController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'max:255', 'unique:rates,name'],
-            'hourly_rate' => 'required',
+            'hourly_rate' => ['required', 'numeric', 'min:0'],
         ],[],
         [
             'name' => 'Nama Tarif Parkir',
@@ -99,9 +99,9 @@ class RatesController extends Controller
         'name' => [
                 'required',
                 'max:255',
-                Rule::unique('rates', 'name')->ignore($rate->id), // Exclude current record
+                Rule::unique('rates', 'name')->ignore($rate->id),
             ],
-            'hourly_rate' => ['required', 'numeric', 'min:0'], // Tambahkan validasi numeric
+            'hourly_rate' => ['required', 'numeric', 'min:0'],
         ], [], [
             'name' => 'Nama Tarif Parkir',
             'hourly_rate' => 'Tarif Parkir Per Jam',

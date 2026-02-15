@@ -4,7 +4,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-use App\Http\Controllers\RatesController;
+use App\Http\Controllers\{
+    RatesController,
+    ParkingAreaController
+};
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,4 +28,5 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('rates', RatesController::class)->middleware('role:admin');  // Hanya Admin
+    Route::resource('parking_areas', ParkingAreaController::class)->middleware('role:admin');  // Hanya Admin
 });

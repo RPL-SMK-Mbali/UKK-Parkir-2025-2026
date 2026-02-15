@@ -14,7 +14,8 @@ return new class extends Migration
         // Table area parkir
         Schema::create('parking_areas', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->foreignId('rate_id')->constrained('rates')->cascadeOnDelete();
+            $table->string('name', 255)->unique()->comment('Nama area parkir');
             $table->integer('capacity')->default(0)->comment('Kapasitas maksimal parkiran');
             $table->enum('type', ['private', 'public'])->comment('Tipe area parkir private atau public');
             $table->timestamps();
