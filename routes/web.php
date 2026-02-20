@@ -6,6 +6,7 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\{
     RatesController,
+    UserController,
     ParkingAreaController,
     TransactionController
 };
@@ -29,6 +30,7 @@ Route::middleware([
     })->name('dashboard');
 
     Route::resource('rates', RatesController::class)->middleware('role:admin');  // Hanya Admin
+    Route::resource('users', UserController::class)->middleware('role:admin');  // Hanya Admin
     Route::resource('parking_areas', ParkingAreaController::class)->middleware('role:admin');  // Hanya Admin
     Route::resource('transactions', TransactionController::class, ['only' => ['index', 'edit', 'update']])->middleware('role:petugas');  // Hanya Operator
 });

@@ -50,6 +50,11 @@ class HandleInertiaRequests extends Middleware
             } else if($user->role == 'admin') {
                 $menus = [
                     [
+                        'name' => 'User',
+                        'route' => 'users.',
+                        'active' => '*',
+                    ],
+                    [
                         'name' => 'Tarif Parkir',
                         'route' => 'rates.',
                         'active' => '*',
