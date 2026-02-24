@@ -25,9 +25,12 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $models = User::paginate(10);
+        $per_page = (int) $request->query('per_page', 10);
+        $models = User::paginate(abs($per_page))
+            ->appends($request->query());
+            
         return Inertia::render('User/Index', [
             'attr' => [
                 'title' => 'User',

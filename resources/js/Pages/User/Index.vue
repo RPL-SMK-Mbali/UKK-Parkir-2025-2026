@@ -4,6 +4,7 @@ import PrimaryLink from '@/Components/PrimaryLink.vue';
 import ConfirmationModal from '@/Components/ConfirmationModal.vue';
 import DangerButton from '@/Components/DangerButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
+import Pagination from '@/Components/Pagination.vue';
 import { Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
@@ -68,6 +69,8 @@ const deleteModel = (id) => {
                         </tbody>
                     </table>
                  </div>
+
+                 <Pagination :links="attr?.models?.links" />
             </div>
         </div>
 

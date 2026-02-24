@@ -28,9 +28,13 @@ class ParkingAreaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $models = ParkingArea::with(['rate'])->paginate(10);
+        $per_page = (int) $request->query('per_page', 10);
+        $models = ParkingArea::with(['rate'])
+            ->paginate(abs($per_page))
+            ->appends($request->query());
+            
         return Inertia::render('ParkingArea/Index', [
             'attr' => [
                 'title' => 'Area Parkir',

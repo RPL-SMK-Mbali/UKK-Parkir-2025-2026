@@ -17,9 +17,12 @@ class RatesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $models = Rates::paginate(10);
+        $per_page = (int) $request->query('per_page', 10);
+        $models = Rates::paginate(abs($per_page))
+            ->appends($request->query());
+
         return Inertia::render('Rates/Index', [
             'attr' => [
                 'title' => 'Tarif Parkir',
