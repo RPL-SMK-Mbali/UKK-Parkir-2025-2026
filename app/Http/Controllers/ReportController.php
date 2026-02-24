@@ -27,7 +27,7 @@ class ReportController extends Controller
         return Inertia::render('Report/Index', [
             'attr' => [
                 'title' => 'Laporan Transaksi',
-                'reports' => route('reports.pdf'),
+                'reports' => 'reports.pdf',
                 'start' => $this->start,
                 'end' => $this->end
             ]
@@ -35,8 +35,11 @@ class ReportController extends Controller
     }
 
     public function pdf(Request $request) {
+        $start = $request->query('start', $this->start);
+        $end = $request->query('end', $this->end);
+    
         $models = Transaction::with(['parking_area'])
-            ->whereBetween('created_at', [$this->start, $this->end])
+            ->whereBetween('date_in', [$start, $end])
             ->get();
 
         // dd($models->toArray());

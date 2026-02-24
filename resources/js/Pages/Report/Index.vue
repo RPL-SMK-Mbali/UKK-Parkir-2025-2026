@@ -4,6 +4,9 @@ import { ref, onMounted } from 'vue';
 
 const iframeStatus = ref(false);
 const iframeKey = ref(null);
+const reports_pdf = ref(null);
+const start = ref(null);
+const end = ref(null);
 
 const props = defineProps({
     attr: {
@@ -15,11 +18,22 @@ const props = defineProps({
 
 function onloadPage() {
 	iframeStatus.value = true;
+     reports_pdf.value = route(props?.attr?.reports, {
+        start: start.value,
+        end: end.value
+    });
+}
+
+function reloadPage() {
+    iframeKey.value = Math.floor(Math.random() * 1000);
 }
 
 onMounted(() => {
+    reports_pdf.value = route(props?.attr?.reports);
 	iframeStatus.value = false;
 	iframeKey.value = Math.floor(Math.random() * 1000);
+    start.value = props?.attr?.start;
+    end.value = props?.attr?.end;
 });
 </script>
 
@@ -38,24 +52,26 @@ onMounted(() => {
                         <label for="from_date">Dari Tanggal</label>
                         <input 
                             id="from_date" 
+                            v-model="start"
                             type="date" 
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                            :value="attr?.start"
+                            @change="reloadPage()"
                         />
                     </div>
                     <div class="bg-gray-200 p-4">
                         <label for="to_date">Sampai Tanggal</label>
                         <input 
                             id="to_date" 
+                            v-model="end"
                             type="date" 
                             class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full"
-                            :value="attr?.end"
+                            @change="reloadPage()"
                         />
                     </div>
                 </div>
 
                 <div class="">
-                    <iframe v-show="iframeStatus" class="w-full h-screen" :src="attr?.reports" @load="onloadPage()" :key="iframeKey"></iframe>
+                    <iframe v-show="iframeStatus" class="w-full h-screen" :src="reports_pdf" @load="onloadPage()" :key="iframeKey"></iframe>
                 </div>
             </div>
         </div>
