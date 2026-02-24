@@ -48,7 +48,37 @@ Sebelum memulai instalasi, pastikan sistem Anda memenuhi persyaratan berikut:
 - macOS (12.0+)
 - Windows 10/11 (WSL2 disarankan)
 
-## 🚀 Instalasi
+### Users
+```
+$items  = [
+    [
+        'email' => 'owner@smkmbali.sch.id',
+        'name' => 'Owner 1 Example',
+        'password' => Hash::make('password'),
+        'role' => 'owner'
+    ],
+    [
+        'email' => 'admin@smkmbali.sch.id',
+        'name' => 'Admin 1 Example',
+        'password' => Hash::make('password'),
+        'role' => 'admin'
+    ],
+    [
+        'email' => 'petugas@smkmbali.sch.id',
+        'name' => 'Petugas 1 Example',
+        'password' => Hash::make('password'),
+        'role' => 'petugas'
+    ],
+];
+```
+
+### Komponen Tambahan 
+  - https://github.com/barryvdh/laravel-dompdf
+  ```
+    composer require barryvdh/laravel-dompdf
+  ```
+
+### 🚀 Instalasi
 ```bash
 git clone https://github.com/RPL-SMK-Mbali/UKK-Parkir-2025-2026.git
 cd UKK-Parkir-2025-2026

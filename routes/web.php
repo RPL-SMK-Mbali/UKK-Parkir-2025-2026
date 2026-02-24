@@ -8,7 +8,8 @@ use App\Http\Controllers\{
     RatesController,
     UserController,
     ParkingAreaController,
-    TransactionController
+    TransactionController,
+    ReportController
 };
 
 Route::get('/', function () {
@@ -33,4 +34,7 @@ Route::middleware([
     Route::resource('users', UserController::class)->middleware('role:admin');  // Hanya Admin
     Route::resource('parking_areas', ParkingAreaController::class)->middleware('role:admin');  // Hanya Admin
     Route::resource('transactions', TransactionController::class, ['only' => ['index', 'edit', 'update']])->middleware('role:petugas');  // Hanya Operator
+
+    Route::get('transactions/report/index', [ReportController::class, 'index'])->middleware('role:owner')->name('reports.index');  // Hanya Owner
+    Route::get('transactions/report/pdf', [ReportController::class, 'pdf'])->middleware('role:owner')->name('reports.pdf');  // Hanya Owner
 });

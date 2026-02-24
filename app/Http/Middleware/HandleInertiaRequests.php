@@ -66,7 +66,13 @@ class HandleInertiaRequests extends Middleware
                     ]
                 ];
             } else if($user->role == 'owner') {
-                $menus = [];
+                $menus = [
+                    [
+                        'name' => 'Laporan Transaksi',
+                        'route' => 'reports.',
+                        'active' => '*',
+                    ]
+                ];
             }
         }
 
